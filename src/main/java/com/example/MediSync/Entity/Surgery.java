@@ -9,19 +9,65 @@ import java.util.Date;
 public class Surgery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long Id;
-
+    private Long id;
     private Date date;
+    private String name;
 
-    private  String Name;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Id")
+    @OneToOne
+    @JoinColumn(name = "id")
     @JsonIgnore
     private Hospital hospital;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Id")
-    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
+
+    public Surgery(Date date, String name, Hospital hospital, Doctor doctor) {
+        this.date = date;
+        this.name = name;
+        this.hospital = hospital;
+        this.doctor = doctor;
+    }
+
+    // Getters and setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
 }
