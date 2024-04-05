@@ -58,7 +58,7 @@ public class DoctorServiceImplementation implements DoctorService {
             existingDoctor.setGender(doctor.getGender());
             existingDoctor.setMobile_no(doctor.getMobile_no());
             existingDoctor.setQualification(doctor.getQualification());
-            existingDoctor.setRole(doctor.getRole());
+            existingDoctor.setRole("Doctor");
         }
         return doctorRepository.save(existingDoctor);
     }

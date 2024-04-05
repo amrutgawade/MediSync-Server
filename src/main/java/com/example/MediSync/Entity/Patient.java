@@ -23,25 +23,24 @@ public class Patient {
     private List<MedicalTest> tests = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-@JsonIgnore
-private List<Surgery> surgeries = new ArrayList<>(); // List of surgeries
+    private List<String> surgeries = new ArrayList<>(); // List of surgeries
 
     private List<String> Current_Medicine = new ArrayList<>();
 
-    public Patient(String patient_Name, String email, Integer mobile_No, String gender, String address, List<String> allergy, List<MedicalTest> tests, List<Surgery> surgeries, List<String> current_Medicine) {
+    // No-argument constructor
+    public Patient() {}
+
+    // Constructor with parameters including surgeries
+    public Patient(String patient_Name, String email, Integer mobile_No, String gender, String address, List<String> allergy, List<String> surgeries, List<String> current_Medicine) {
         this.patient_Name = patient_Name;
         this.email = email;
         this.mobile_No = mobile_No;
         this.gender = gender;
         this.address = address;
-        Allergy = allergy;
-        this.tests = tests;
+        this.Allergy = allergy;
         this.surgeries = surgeries;
-        Current_Medicine = current_Medicine;
+        this.Current_Medicine = current_Medicine;
     }
-
-    // Getters and
 
     public Long getId() {
         return id;
@@ -107,11 +106,11 @@ private List<Surgery> surgeries = new ArrayList<>(); // List of surgeries
         this.tests = tests;
     }
 
-    public List<Surgery> getSurgeries() {
+    public List<String> getSurgeries() {
         return surgeries;
     }
 
-    public void setSurgeries(List<Surgery> surgeries) {
+    public void setSurgeries(List<String> surgeries) {
         this.surgeries = surgeries;
     }
 

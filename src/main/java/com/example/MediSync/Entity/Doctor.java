@@ -19,10 +19,6 @@ public class Doctor {
 
     private String hospitalName;
 
-    @ManyToOne
-    @JoinColumn(name = "surgery_id")
-    private Surgery surgery;
-
     private String role;
 
 
@@ -32,7 +28,7 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(String first_name, String last_name, String email, String mobile_no, String gender, String qualification, String password, String hospitalName, Surgery surgery, String role) {
+    public Doctor(String first_name, String last_name, String email, String mobile_no, String gender, String qualification, String password, String hospitalName, String surgery, String role) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
@@ -41,7 +37,6 @@ public class Doctor {
         this.qualification = qualification;
         this.password = password;
         this.hospitalName = hospitalName;
-        this.surgery = surgery;
         this.role = role;
     }
 
@@ -115,14 +110,6 @@ public class Doctor {
 
     public void setHospitalName(String hospitalName) {
         this.hospitalName = hospitalName;
-    }
-
-    public Surgery getSurgery() {
-        return surgery;
-    }
-
-    public void setSurgery(Surgery surgery) {
-        this.surgery = surgery;
     }
 
     public String getRole() {
