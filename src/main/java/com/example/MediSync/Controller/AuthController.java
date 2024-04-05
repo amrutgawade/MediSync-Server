@@ -2,6 +2,7 @@ package com.example.MediSync.Controller;
 
 import com.example.MediSync.Entity.Doctor;
 import com.example.MediSync.Repository.DoctorRepository;
+import com.example.MediSync.Request.LoginRequest;
 import com.example.MediSync.Responces.AuthResponse;
 import com.example.MediSync.Services.CustomUserServiceImplementation;
 import com.example.MediSync.config.JWTProvider;
@@ -44,26 +45,28 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody Doctor doctor) throws UserException {
         String email = doctor.getEmail();
-        String password = doctor.getPassword();
-        String firstName = doctor.getFirst_Name();
+        String firstName = doctor.getFirst_name();
         String lastName = doctor.getLast_name();
-        Integer mobile = doctor.getMobile_No();
+        String mobile = doctor.getMobile_no();
         String gender = doctor.getGender();
+        String password = doctor.getPassword();
+        String qualification = doctor.getQualification();
 
-        System.out.println(doctor.toString());
         Doctor isEmailExist = doctorRepository.findByEmail(email);
-        System.out.println(doctor.toString());
+        System.out.println(doctor.getFirst_name());
         if (isEmailExist != null) {
             throw new UserException("Email already exist for another user");
         }
-        System.out.println(doctor.toString());
         Doctor createDoctor = new Doctor();
         createDoctor.setEmail(doctor.getEmail());
-        createDoctor.setPassword(passwordEncoder.encode(password));
+
         createDoctor.setFirst_Name(firstName);
         createDoctor.setLast_name(lastName);
         createDoctor.setMobile_No(mobile);
         createDoctor.setGender(gender);
+        createDoctor.setPassword(passwordEncoder.encode(password));
+        createDoctor.setQualification(qualification);
+
         createDoctor.setRole("Doctor");
 
         Doctor savedDoctor = doctorRepository.save(createDoctor);
@@ -82,23 +85,23 @@ public class AuthController {
 
         return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
     }
-//    @PostMapping("/signin")
-//    public ResponseEntity<AuthResponse> loginUserHandler(@RequestBody LoginRequest loginRequest) throws UserException{
-//
-//        String email = loginRequest.getEmail();
-//        String password = loginRequest.getPassword();
-//
-//        Authentication authentication = Authentication(email,password);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        String token = jwtProvider.generateToken(authentication);
-//
-//        AuthResponse authResponse = new AuthResponse();
-//        authResponse.setJwt(token);
-//        authResponse.setMessage("SignIn Successfull");
-//
-//        return new ResponseEntity<AuthResponse>(authResponse,HttpStatus.CREATED);
-//    }
+    @PostMapping("/signin")
+    public ResponseEntity<AuthResponse> loginUserHandler(@RequestBody LoginRequest loginRequest) throws UserException{
+
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+
+        Authentication authentication = Authentication(email,password);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String token = jwtProvider.generateToken(authentication);
+
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setJwt(token);
+        authResponse.setMessage("SignIn Successfull");
+
+        return new ResponseEntity<AuthResponse>(authResponse,HttpStatus.CREATED);
+    }
     private Authentication Authentication(String email, String password) {
         UserDetails userDetails = customUserService.loadUserByUsername(email);
 

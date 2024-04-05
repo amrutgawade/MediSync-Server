@@ -8,15 +8,14 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String first_Name;
-
+    private String first_name;
     private String last_name;
     private String email;
-    private Integer mobile_No;
+    private String mobile_no;
     private String gender;
     private String qualification;
 
-    private  String password;
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "hospital_id")
@@ -35,18 +34,18 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(String first_name, String last_name, String email, Integer mobile_No, String gender, String qualification, Hospital hospital, Surgery surgery, String password, String role) {
-        this.first_Name = first_name;
+    public Doctor( String first_Name, String last_name, String email, String mobile_No, String gender, String qualification, String password, Hospital hospital, Surgery surgery, String role) {
+
+        this.first_name = first_Name;
         this.last_name = last_name;
         this.email = email;
-        this.mobile_No = mobile_No;
+        this.mobile_no = mobile_No;
         this.gender = gender;
         this.qualification = qualification;
+        this.password = password;
         this.hospital = hospital;
         this.surgery = surgery;
-        this.password = password;
         this.role = role;
-
     }
 
     public Long getId() {
@@ -57,12 +56,12 @@ public class Doctor {
         this.id = id;
     }
 
-    public String getFirst_Name() {
-        return first_Name;
+    public String getFirst_name() {
+        return first_name;
     }
 
     public void setFirst_Name(String first_Name) {
-        this.first_Name = first_Name;
+        this.first_name = first_Name;
     }
 
     public String getLast_name() {
@@ -81,12 +80,12 @@ public class Doctor {
         this.email = email;
     }
 
-    public Integer getMobile_No() {
-        return mobile_No;
+    public String getMobile_no() {
+        return mobile_no;
     }
 
-    public void setMobile_No(Integer mobile_No) {
-        this.mobile_No = mobile_No;
+    public void setMobile_No(String mobile_No) {
+        this.mobile_no = mobile_No;
     }
 
     public String getGender() {
@@ -105,6 +104,14 @@ public class Doctor {
         this.qualification = qualification;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Hospital getHospital() {
         return hospital;
     }
@@ -121,19 +128,28 @@ public class Doctor {
         this.surgery = surgery;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getRole() {
         return role;
     }
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", first_Name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile_No='" + mobile_no + '\'' +
+                ", gender='" + gender + '\'' +
+                ", qualification='" + qualification + '\'' +
+                ", password='" + password + '\'' +
+                ", hospital=" + hospital +
+                ", surgery=" + surgery +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
