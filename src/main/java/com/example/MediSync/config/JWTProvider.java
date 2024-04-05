@@ -1,5 +1,6 @@
 package com.example.MediSync.config;
 
+import com.example.MediSync.Services.CustomUserServiceImplementation;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -19,40 +20,40 @@ import java.util.stream.Collectors;
 public class JWTProvider {
     SecretKey key = Keys.hmacShaKeyFor(JWTConstant.SECRET_KEY.getBytes());
 
-//    @Autowired
-//    private CustomUserServiceImplementation customUserService;
-//
-//    public JWTProvider(CustomUserServiceImplementation customUserService){
-//
-//    }
-  //  public String generateToken(Authentication auth) {
-     //   UserDetails userDetails = customUserService.loadUserByUsername(auth.getName());
+    @Autowired
+    private CustomUserServiceImplementation customUserService;
 
-//        String joinedAuthorities = userDetails.getAuthorities().stream()
-//                .map(GrantedAuthority::getAuthority)
-//                .collect(Collectors.joining(","));
-//
-//        Claims claims = Jwts.claims().setSubject(auth.getName());
-//        claims.put("authorities",joinedAuthorities);
-//        claims.put("email", userDetails.getUsername());
-//
-//        String jwt = Jwts.builder().setClaims(claims)
-//                .setIssuedAt(new Date())
-//                .setExpiration(new Date(new Date().getTime()+846000000))
-//                .signWith(key)
-//                .compact();
-//
-//        return jwt;
-//    }
+    public JWTProvider(CustomUserServiceImplementation customUserService){
 
-//    public String getEmailFromToken(String jwt) {
-//
-//        jwt=jwt.substring(7);
-//
-//        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
-//
-//        String email = String.valueOf(claims.get("email"));
-//
-//        return email;
-//    }
+    }
+    public String generateToken(Authentication auth) {
+        UserDetails userDetails = customUserService.loadUserByUsername(auth.getName());
+
+        String joinedAuthorities = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        Claims claims = Jwts.claims().setSubject(auth.getName());
+        claims.put("authorities",joinedAuthorities);
+        claims.put("email", userDetails.getUsername());
+
+        String jwt = Jwts.builder().setClaims(claims)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime()+846000000))
+                .signWith(key)
+                .compact();
+
+        return jwt;
+    }
+
+    public String getEmailFromToken(String jwt) {
+
+        jwt=jwt.substring(7);
+
+        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+
+        String email = String.valueOf(claims.get("email"));
+
+        return email;
+    }
 }
