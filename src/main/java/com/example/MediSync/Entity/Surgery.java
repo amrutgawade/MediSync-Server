@@ -13,10 +13,7 @@ public class Surgery {
     private Date date;
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "hospital_id")
-    @JsonIgnore
-    private Hospital hospital;
+    private String hospitalName;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")
@@ -27,15 +24,14 @@ public class Surgery {
     @JsonIgnore
     private Patient patient;  // Add patient field
 
-    public Surgery(Date date, String name, Hospital hospital, Doctor doctor, Patient patient) {
+    public Surgery(Long id, Date date, String name, String hospitalName, Doctor doctor, Patient patient) {
+        this.id = id;
         this.date = date;
         this.name = name;
-        this.hospital = hospital;
+        this.hospitalName = hospitalName;
         this.doctor = doctor;
-        this.patient = patient; // Set patient
+        this.patient = patient;
     }
-
-    // Getters and setters
 
     public Long getId() {
         return id;
@@ -61,12 +57,12 @@ public class Surgery {
         this.name = name;
     }
 
-    public Hospital getHospital() {
-        return hospital;
+    public String getHospitalName() {
+        return hospitalName;
     }
 
-    public void setHospital(Hospital hospital) {
-        this.hospital = hospital;
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
     }
 
     public Doctor getDoctor() {

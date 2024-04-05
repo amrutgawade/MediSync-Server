@@ -17,9 +17,7 @@ public class Doctor {
 
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "hospital_id")
-    private Hospital hospital;
+    private String hospitalName;
 
     @ManyToOne
     @JoinColumn(name = "surgery_id")
@@ -34,16 +32,15 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor( String first_Name, String last_name, String email, String mobile_No, String gender, String qualification, String password, Hospital hospital, Surgery surgery, String role) {
-
-        this.first_name = first_Name;
+    public Doctor(String first_name, String last_name, String email, String mobile_no, String gender, String qualification, String password, String hospitalName, Surgery surgery, String role) {
+        this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
-        this.mobile_no = mobile_No;
+        this.mobile_no = mobile_no;
         this.gender = gender;
         this.qualification = qualification;
         this.password = password;
-        this.hospital = hospital;
+        this.hospitalName = hospitalName;
         this.surgery = surgery;
         this.role = role;
     }
@@ -60,8 +57,8 @@ public class Doctor {
         return first_name;
     }
 
-    public void setFirst_Name(String first_Name) {
-        this.first_name = first_Name;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
     public String getLast_name() {
@@ -84,8 +81,8 @@ public class Doctor {
         return mobile_no;
     }
 
-    public void setMobile_No(String mobile_No) {
-        this.mobile_no = mobile_No;
+    public void setMobile_no(String mobile_no) {
+        this.mobile_no = mobile_no;
     }
 
     public String getGender() {
@@ -112,12 +109,12 @@ public class Doctor {
         this.password = password;
     }
 
-    public Hospital getHospital() {
-        return hospital;
+    public String getHospitalName() {
+        return hospitalName;
     }
 
-    public void setHospital(Hospital hospital) {
-        this.hospital = hospital;
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
     }
 
     public Surgery getSurgery() {
@@ -134,22 +131,5 @@ public class Doctor {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "Doctor{" +
-                "id=" + id +
-                ", first_Name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", email='" + email + '\'' +
-                ", mobile_No='" + mobile_no + '\'' +
-                ", gender='" + gender + '\'' +
-                ", qualification='" + qualification + '\'' +
-                ", password='" + password + '\'' +
-                ", hospital=" + hospital +
-                ", surgery=" + surgery +
-                ", role='" + role + '\'' +
-                '}';
     }
 }

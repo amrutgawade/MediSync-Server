@@ -49,6 +49,7 @@ public class AuthController {
         String lastName = doctor.getLast_name();
         String mobile = doctor.getMobile_no();
         String gender = doctor.getGender();
+        String hospitalName = doctor.getHospitalName();
         String password = doctor.getPassword();
         String qualification = doctor.getQualification();
 
@@ -60,10 +61,11 @@ public class AuthController {
         Doctor createDoctor = new Doctor();
         createDoctor.setEmail(doctor.getEmail());
 
-        createDoctor.setFirst_Name(firstName);
+        createDoctor.setFirst_name(firstName);
         createDoctor.setLast_name(lastName);
-        createDoctor.setMobile_No(mobile);
+        createDoctor.setMobile_no(mobile);
         createDoctor.setGender(gender);
+        createDoctor.setHospitalName(hospitalName);
         createDoctor.setPassword(passwordEncoder.encode(password));
         createDoctor.setQualification(qualification);
 
