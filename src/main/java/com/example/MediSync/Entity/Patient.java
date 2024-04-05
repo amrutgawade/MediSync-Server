@@ -22,9 +22,10 @@ public class Patient {
     @JsonIgnore
     private List<MedicalTest> tests = new ArrayList<>();
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Surgery> surgeries = new ArrayList<>();
+//    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+@JsonIgnore
+private List<Surgery> surgeries = new ArrayList<>(); // List of surgeries
 
     private List<String> Current_Medicine = new ArrayList<>();
 

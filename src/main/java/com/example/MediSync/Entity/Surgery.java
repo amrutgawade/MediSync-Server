@@ -19,10 +19,10 @@ public class Surgery {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
+    // Define the join column for patient
     @ManyToOne
-    @JoinColumn(name = "patient_id")  // Define the join column for patient
-    @JsonIgnore
-    private Patient patient;  // Add patient field
+    @JoinColumn(name = "patient_id")
+    private Patient patient; // Surgery belongs to one patient
 
     public Surgery(Long id, Date date, String name, String hospitalName, Doctor doctor, Patient patient) {
         this.id = id;
