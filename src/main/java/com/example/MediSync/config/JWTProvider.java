@@ -17,17 +17,17 @@ import java.util.stream.Collectors;
 
 @Service
 public class JWTProvider {
-//    SecretKey key = Keys.hmacShaKeyFor(JWTConstant.SECRET_KEY.getBytes());
-//
+    SecretKey key = Keys.hmacShaKeyFor(JWTConstant.SECRET_KEY.getBytes());
+
 //    @Autowired
 //    private CustomUserServiceImplementation customUserService;
 //
-//    public JwtProvider(CustomUserServiceImplementation customUserService){
+//    public JWTProvider(CustomUserServiceImplementation customUserService){
 //
 //    }
-//    public String generateToken(Authentication auth) {
-//        UserDetails userDetails = customUserService.loadUserByUsername(auth.getName());
-//
+  //  public String generateToken(Authentication auth) {
+     //   UserDetails userDetails = customUserService.loadUserByUsername(auth.getName());
+
 //        String joinedAuthorities = userDetails.getAuthorities().stream()
 //                .map(GrantedAuthority::getAuthority)
 //                .collect(Collectors.joining(","));
@@ -44,7 +44,7 @@ public class JWTProvider {
 //
 //        return jwt;
 //    }
-//
+
 //    public String getEmailFromToken(String jwt) {
 //
 //        jwt=jwt.substring(7);
