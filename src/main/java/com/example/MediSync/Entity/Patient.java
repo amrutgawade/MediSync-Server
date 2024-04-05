@@ -121,4 +121,20 @@ public class Patient {
     public void setCurrent_Medicine(List<String> current_Medicine) {
         Current_Medicine = current_Medicine;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id=" + id +
+                ", patient_Name='" + patient_Name + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile_No=" + mobile_No +
+                ", gender='" + gender + '\'' +
+                ", address='" + address + '\'' +
+                ", Allergy=" + Allergy +
+                ", tests=" + tests +
+                ", surgeries=" + surgeries +
+                ", Current_Medicine=" + Current_Medicine +
+                '}';
+    }
 }
