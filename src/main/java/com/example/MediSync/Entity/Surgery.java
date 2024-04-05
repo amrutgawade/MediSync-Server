@@ -14,7 +14,7 @@ public class Surgery {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "hospital_id")
     @JsonIgnore
     private Hospital hospital;
 
@@ -22,11 +22,17 @@ public class Surgery {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    public Surgery(Date date, String name, Hospital hospital, Doctor doctor) {
+    @ManyToOne
+    @JoinColumn(name = "patient_id")  // Define the join column for patient
+    @JsonIgnore
+    private Patient patient;  // Add patient field
+
+    public Surgery(Date date, String name, Hospital hospital, Doctor doctor, Patient patient) {
         this.date = date;
         this.name = name;
         this.hospital = hospital;
         this.doctor = doctor;
+        this.patient = patient; // Set patient
     }
 
     // Getters and setters
@@ -69,5 +75,13 @@ public class Surgery {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

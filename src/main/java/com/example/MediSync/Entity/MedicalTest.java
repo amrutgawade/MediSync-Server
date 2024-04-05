@@ -9,7 +9,7 @@ import java.util.Date;
 public class MedicalTest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long medicalTestId;
     private String test_Name;
     private Date date;
 
@@ -23,12 +23,12 @@ public class MedicalTest {
         this.patient = patient;
     }
 
-    public Long getId() {
-        return id;
+    public Long getMedicalTestId() {
+        return medicalTestId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMedicalTestId(Long medicalTestId) {
+        this.medicalTestId = medicalTestId;
     }
 
     public String getTest_Name() {
