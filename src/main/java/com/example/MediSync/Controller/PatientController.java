@@ -1,5 +1,6 @@
 package com.example.MediSync.Controller;
 
+import com.example.MediSync.Entity.Assistant;
 import com.example.MediSync.Entity.Patient;
 import com.example.MediSync.Repository.PatientRepository;
 import com.example.MediSync.Request.LoginRequest;
@@ -49,6 +50,19 @@ public class PatientController {
         return new ResponseEntity<Patient>(savePatient, HttpStatus.CREATED);
     }
 
+    @GetMapping("/profile")
+    public ResponseEntity<Patient> getUserProfileHandler(@RequestHeader("Authorization") String jwt)throws UserException {
+        Patient user = patientService.findUserProfileByJwt(jwt);
+        return new ResponseEntity<Patient>(user, HttpStatus.ACCEPTED);
+    }
+
+//    @PostMapping("/update")
+//    public ResponseEntity<Patient> update(@RequestBody Patient patient){
+//        patient.setPassword(passwordEncoder.encode(patient.getPassword()));
+//        patient.setRole("Patient");
+//        Patient savePatient = patientRepository.save(patient);
+//        return new ResponseEntity<Patient>(savePatient, HttpStatus.CREATED);
+//    }
 
 
 
