@@ -31,4 +31,10 @@ public class AssistantController {
         Assistant user = assistantService.findUserProfileByJwt(jwt);
         return new ResponseEntity<Assistant>(user, HttpStatus.ACCEPTED);
     }
+
+    @PutMapping("/profile/update")
+    public ResponseEntity<Assistant> updateUser(@RequestHeader("Authorization") String jwt,@RequestBody Assistant assistant)throws UserException {
+        Assistant updatedProfile = assistantService.updateUser(jwt,assistant);
+        return new ResponseEntity<Assistant>(updatedProfile,HttpStatus.ACCEPTED);
+    }
 }
