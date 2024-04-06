@@ -15,6 +15,7 @@ public class Patient {
     private String email;
     private Integer mobile_No;
     private String gender;
+    private Integer age;
     private String address;
     private List<String> Allergy = new ArrayList<>();
 
@@ -34,11 +35,12 @@ public class Patient {
     // No-argument constructor
     public Patient() {}
 
-    public Patient( String patient_Name, String email, Integer mobile_No, String gender, String address, List<String> allergy, List<MedicalTest> tests, List<String> surgeries, List<String> current_Medicine, String role, String password) {
+    public Patient( String patient_Name, String email, Integer mobile_No, String gender,Integer age, String address, List<String> allergy, List<MedicalTest> tests, List<String> surgeries, List<String> current_Medicine, String role, String password) {
         this.patient_Name = patient_Name;
         this.email = email;
         this.mobile_No = mobile_No;
         this.gender = gender;
+        this.age = age;
         this.address = address;
         Allergy = allergy;
         this.tests = tests;
@@ -86,6 +88,14 @@ public class Patient {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getAddress() {

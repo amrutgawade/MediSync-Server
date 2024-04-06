@@ -1,6 +1,8 @@
 package com.example.MediSync.config;
 
 import com.example.MediSync.Services.CustomUserServiceImplementation;
+import com.example.MediSync.Services.CustomeAssistantServiceImplementation;
+import com.example.MediSync.Services.CustomePatientServiceImplementation;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -22,6 +24,10 @@ public class JWTProvider {
 
     @Autowired
     private CustomUserServiceImplementation customUserService;
+    @Autowired
+    private CustomeAssistantServiceImplementation customeAssistantService;
+    @Autowired
+    private CustomePatientServiceImplementation customePatientService;
 
 
 
@@ -49,7 +55,7 @@ public class JWTProvider {
     }
 
     public String generateTokenForAssistant(Authentication auth){
-        UserDetails userDetails = customUserService.loadUserByUsername(auth.getName());
+        UserDetails userDetails = customeAssistantService.loadUserByUsername(auth.getName());
 
         String joinedAuthorities = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -69,7 +75,7 @@ public class JWTProvider {
     }
 
     public String generateTokenForPatient(Authentication auth){
-        UserDetails userDetails = customUserService.loadUserByUsername(auth.getName());
+        UserDetails userDetails = customePatientService.loadUserByUsername(auth.getName());
 
         String joinedAuthorities = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)

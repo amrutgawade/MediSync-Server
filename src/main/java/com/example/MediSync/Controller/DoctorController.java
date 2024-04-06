@@ -19,6 +19,9 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
+    @Autowired
+    private AssistantService assistantService;
+
 
 
     @GetMapping("/profile")
@@ -31,6 +34,12 @@ public class DoctorController {
     public ResponseEntity<Doctor> updateUser(@RequestHeader("Authorization") String jwt,@RequestBody Doctor doctor)throws UserException {
         Doctor updatedProfile = doctorService.updateUser(jwt,doctor);
         return new ResponseEntity<Doctor>(updatedProfile,HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/addassistant")
+    public ResponseEntity<Assistant> addAssistant(@RequestBody Assistant assistant) throws UserException {
+        Assistant newAssistant = assistantService.addAssistant(assistant);
+        return new ResponseEntity<Assistant>(newAssistant, HttpStatus.CREATED);
     }
 
 }

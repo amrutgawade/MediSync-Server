@@ -1,10 +1,10 @@
 package com.example.MediSync.Controller;
 
-import com.example.MediSync.Entity.Assistant;
+import com.example.MediSync.Repository.PatientRepository;
 import com.example.MediSync.Request.LoginRequest;
 import com.example.MediSync.Responces.AuthResponse;
-import com.example.MediSync.Services.AssistantService;
-import com.example.MediSync.Services.CustomeAssistantServiceImplementation;
+import com.example.MediSync.Services.CustomePatientServiceImplementation;
+import com.example.MediSync.Services.PatientService;
 import com.example.MediSync.config.JWTProvider;
 import com.example.MediSync.exceptions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,27 +22,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth/assistant")
-public class AssistantController {
+@RequestMapping("/auth/patient")
+public class PatientAuthController {
+
+    @Autowired
+    private PatientRepository patientRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PatientService patientService;
 
     @Autowired
     private JWTProvider jwtProvider;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private CustomeAssistantServiceImplementation customeAssistantService;
-
-    @Autowired
-    public AssistantController(JWTProvider jwtProvider,PasswordEncoder passwordEncoder, CustomeAssistantServiceImplementation customeAssistantService) {
-        this.jwtProvider = jwtProvider;
-        this.passwordEncoder = passwordEncoder;
-        this.customeAssistantService = customeAssistantService;
-    }
-
+    private CustomePatientServiceImplementation customePatientService;
+    
     @PostMapping("/signin")
-    public ResponseEntity<AuthResponse> loginUserHandler(@RequestBody LoginRequest loginRequest) throws UserException{
+    public ResponseEntity<AuthResponse> loginUserHandler(@RequestBody LoginRequest loginRequest) throws UserException {
 
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
@@ -50,18 +47,18 @@ public class AssistantController {
         Authentication authentication = Authentication(email,password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = jwtProvider.generateTokenForAssistant(authentication);
+        String token = jwtProvider.generateTokenForPatient(authentication);
 
         AuthResponse authResponse = new AuthResponse();
         authResponse.setJwt(token);
         authResponse.setMessage("SignIn Successfull");
 
-        return new ResponseEntity<AuthResponse>(authResponse,HttpStatus.CREATED);
+        return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.CREATED);
     }
 
 
     private Authentication Authentication(String email, String password) {
-        UserDetails userDetails = customeAssistantService.loadUserByUsername(email);
+        UserDetails userDetails = customePatientService.loadUserByUsername(email);
 
         if (userDetails==null) {
             throw new BadCredentialsException("Invalid Email");
