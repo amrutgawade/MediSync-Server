@@ -52,7 +52,7 @@ public class PatientController {
 
 
 
-    @GetMapping("/getPatient")
+    @PostMapping("/getPatient")
     public ResponseEntity<Patient> getData(@RequestBody String email) throws UserException , Exception{
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(email);
