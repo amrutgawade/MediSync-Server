@@ -23,6 +23,8 @@ public class JWTProvider {
     @Autowired
     private CustomUserServiceImplementation customUserService;
 
+
+
     public JWTProvider(CustomUserServiceImplementation customUserService){
 
     }
@@ -45,6 +47,48 @@ public class JWTProvider {
 
         return jwt;
     }
+
+    public String generateTokenForAssistant(Authentication auth){
+        UserDetails userDetails = customUserService.loadUserByUsername(auth.getName());
+
+        String joinedAuthorities = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        Claims claims = Jwts.claims().setSubject(auth.getName());
+        claims.put("authorities",joinedAuthorities);
+        claims.put("email", userDetails.getUsername());
+
+        String jwt = Jwts.builder().setClaims(claims)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime()+846000000))
+                .signWith(key)
+                .compact();
+
+        return jwt;
+    }
+
+    public String generateTokenForPatient(Authentication auth){
+        UserDetails userDetails = customUserService.loadUserByUsername(auth.getName());
+
+        String joinedAuthorities = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        Claims claims = Jwts.claims().setSubject(auth.getName());
+        claims.put("authorities",joinedAuthorities);
+        claims.put("email", userDetails.getUsername());
+
+        String jwt = Jwts.builder().setClaims(claims)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime()+846000000))
+                .signWith(key)
+                .compact();
+
+        return jwt;
+    }
+
+
 
     public String getEmailFromToken(String jwt) {
 

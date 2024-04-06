@@ -1,8 +1,12 @@
 package com.example.MediSync.Controller;
 
+import com.example.MediSync.Entity.Assistant;
 import com.example.MediSync.Entity.Doctor;
+import com.example.MediSync.Repository.AssistantRepository;
+import com.example.MediSync.Services.AssistantService;
 import com.example.MediSync.Services.DoctorService;
 import com.example.MediSync.exceptions.UserException;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +20,7 @@ public class DoctorController {
     private DoctorService doctorService;
 
 
+
     @GetMapping("/profile")
     public ResponseEntity<Doctor> getUserProfileHandler(@RequestHeader("Authorization") String jwt)throws UserException {
         Doctor user = doctorService.findUserProfileByJwt(jwt);
@@ -27,4 +32,5 @@ public class DoctorController {
         Doctor updatedProfile = doctorService.updateUser(jwt,doctor);
         return new ResponseEntity<Doctor>(updatedProfile,HttpStatus.ACCEPTED);
     }
+
 }

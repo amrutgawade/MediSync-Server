@@ -21,11 +21,12 @@ public class PatientServiceImplementation implements PatientService{
 
     @Override
     public Patient findByEmail(String email) throws UserException{
-        Patient getPatient = patientRepository.findByEmail("rutikesh@gmail.com");
-        if (getPatient != null){
-            return getPatient;
+        Patient getPatient = patientRepository.findByEmail(email);
+        if (getPatient == null){
+            throw new UserException("Patient Not Found");
         }
-        throw new UserException("Patient Not Found");
+        return getPatient;
+
     }
 
     @Override

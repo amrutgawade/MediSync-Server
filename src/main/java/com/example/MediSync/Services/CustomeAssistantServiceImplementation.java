@@ -1,40 +1,39 @@
 package com.example.MediSync.Services;
 
+import com.example.MediSync.Entity.Assistant;
 import com.example.MediSync.Entity.Doctor;
-import com.example.MediSync.Repository.DoctorRepository;
+import com.example.MediSync.Repository.AssistantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-public class CustomUserServiceImplementation implements UserDetailsService {
+public class CustomeAssistantServiceImplementation implements UserDetailsService {
 
-    private DoctorRepository doctorRepository;
-
+    private AssistantRepository assistantRepository;
 
     @Autowired
-    public CustomUserServiceImplementation(DoctorRepository doctorRepository) {
-        this.doctorRepository=doctorRepository;
+    public CustomeAssistantServiceImplementation(AssistantRepository assistantRepository) {
+        this.assistantRepository = assistantRepository;
     }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Doctor doctor = doctorRepository.findByEmail(username);
+        Assistant assistant = assistantRepository.findByEmail(username);
 
-        if (doctor == null) {
+        if (assistant == null) {
             throw new UsernameNotFoundException("User Not Found With Email"+username);
         }
 
         List<GrantedAuthority> authorities;
-        authorities = Arrays.stream(doctor.getRole().split(","))
+        authorities = Arrays.stream(assistant.getRole().split(","))
                 .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-        return new org.springframework.security.core.userdetails.User(doctor.getEmail(),doctor.getPassword(),authorities);
+        return new org.springframework.security.core.userdetails.User(assistant.getEmail(),assistant.getPassword(),authorities);
     }
 }

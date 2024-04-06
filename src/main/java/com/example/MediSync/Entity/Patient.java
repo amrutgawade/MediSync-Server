@@ -27,19 +27,25 @@ public class Patient {
 
     private List<String> Current_Medicine = new ArrayList<>();
 
+    private String role;
+
+    private String password;
+
     // No-argument constructor
     public Patient() {}
 
-    // Constructor with parameters including surgeries
-    public Patient(String patient_Name, String email, Integer mobile_No, String gender, String address, List<String> allergy, List<String> surgeries, List<String> current_Medicine) {
+    public Patient( String patient_Name, String email, Integer mobile_No, String gender, String address, List<String> allergy, List<MedicalTest> tests, List<String> surgeries, List<String> current_Medicine, String role, String password) {
         this.patient_Name = patient_Name;
         this.email = email;
         this.mobile_No = mobile_No;
         this.gender = gender;
         this.address = address;
-        this.Allergy = allergy;
+        Allergy = allergy;
+        this.tests = tests;
         this.surgeries = surgeries;
-        this.Current_Medicine = current_Medicine;
+        Current_Medicine = current_Medicine;
+        this.role = role;
+        this.password = password;
     }
 
     public Long getId() {
@@ -122,19 +128,19 @@ public class Patient {
         Current_Medicine = current_Medicine;
     }
 
-    @Override
-    public String toString() {
-        return "Patient{" +
-                "id=" + id +
-                ", patient_Name='" + patient_Name + '\'' +
-                ", email='" + email + '\'' +
-                ", mobile_No=" + mobile_No +
-                ", gender='" + gender + '\'' +
-                ", address='" + address + '\'' +
-                ", Allergy=" + Allergy +
-                ", tests=" + tests +
-                ", surgeries=" + surgeries +
-                ", Current_Medicine=" + Current_Medicine +
-                '}';
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
