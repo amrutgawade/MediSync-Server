@@ -37,7 +37,7 @@ public class PatientAuthController {
 
     @Autowired
     private CustomePatientServiceImplementation customePatientService;
-    
+
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> loginUserHandler(@RequestBody LoginRequest loginRequest) throws UserException {
 
